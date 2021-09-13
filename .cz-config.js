@@ -35,7 +35,7 @@ module.exports = {
     },
   ],
 
-  scopes: [{ name: "observer" }],
+  scopes: [{ name: "git" }, { name: "observer" }, { name: "accounts" }],
 
   scopeOverrides: {
     fix: [
