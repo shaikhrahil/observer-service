@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                         blank=True, null=True, verbose_name="last login"
                     ),
                 ),
-                ("user_name", models.CharField(max_length=12, unique=True)),
+                ("username", models.CharField(max_length=12, unique=True)),
                 ("is_staff", models.BooleanField(default=False)),
                 ("is_active", models.BooleanField(default=True)),
             ],
