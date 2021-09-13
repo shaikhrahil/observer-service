@@ -1,4 +1,6 @@
+# node tools
 node_modules/*
+
 # Django #
 *.log
 *.pot
