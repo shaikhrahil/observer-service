@@ -9,43 +9,83 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('user_name', models.CharField(max_length=12, unique=True)),
-                ('is_staff', models.BooleanField(default=False)),
-                ('is_active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                ("user_name", models.CharField(max_length=12, unique=True)),
+                ("is_staff", models.BooleanField(default=False)),
+                ("is_active", models.BooleanField(default=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
             managers=[
-                ('object', django.db.models.manager.Manager()),
+                ("object", django.db.models.manager.Manager()),
             ],
         ),
         migrations.CreateModel(
-            name='Theme',
+            name="Theme",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('variants', models.CharField(choices=[('dark', 'Dark'), ('light', 'Light')], default='dark', max_length=5)),
-                ('name', models.CharField(max_length=12)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "variants",
+                    models.CharField(
+                        choices=[("dark", "Dark"), ("light", "Light")],
+                        default="dark",
+                        max_length=5,
+                    ),
+                ),
+                ("name", models.CharField(max_length=12)),
             ],
             options={
-                'unique_together': {('variants', 'name')},
+                "unique_together": {("variants", "name")},
             },
         ),
         migrations.CreateModel(
-            name='Preference',
+            name="Preference",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('theme', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.theme')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "theme",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="accounts.theme"
+                    ),
+                ),
             ],
         ),
     ]

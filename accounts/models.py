@@ -7,11 +7,14 @@ from django.contrib.auth.models import AbstractBaseUser
 
 class Theme(models.Model):
     variants = models.CharField(
-        choices=ThemeVariantChoices.choices, max_length=5, default=ThemeVariantChoices.DARK)
+        choices=ThemeVariantChoices.choices,
+        max_length=5,
+        default=ThemeVariantChoices.DARK,
+    )
     name = models.CharField(max_length=12)
 
     class Meta:
-        unique_together = ('variants', 'name')
+        unique_together = ("variants", "name")
 
 
 class Preference(models.Model):
@@ -21,9 +24,9 @@ class Preference(models.Model):
 class CustomUserManager(BaseUserManager):
     def create_user(self, user_name, password):
         if not user_name:
-            raise ValueError('user_name is missing')
+            raise ValueError("user_name is missing")
         if not password:
-            raise ValueError('password is missing')
+            raise ValueError("password is missing")
 
         user = self.model(user_name=user_name)
         user.set_password(password)
@@ -32,9 +35,9 @@ class CustomUserManager(BaseUserManager):
 
     def create_staffuser(self, user_name, password):
         if not user_name:
-            raise ValueError('user_name is missing')
+            raise ValueError("user_name is missing")
         if not password:
-            raise ValueError('password is missing')
+            raise ValueError("password is missing")
 
         user = self.model(user_name=user_name)
         user.set_password(password)
@@ -45,9 +48,9 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, user_name, password):
         print(user_name, password)
         if not user_name:
-            raise ValueError('user_name is missing')
+            raise ValueError("user_name is missing")
         if not password:
-            raise ValueError('password is missing')
+            raise ValueError("password is missing")
 
         user = self.model(user_name=user_name)
         user.set_password(password)
@@ -69,5 +72,5 @@ class User(AbstractBaseUser):
 
     object = CustomUserManager()
 
-    USERNAME_FIELD = 'user_name'
+    USERNAME_FIELD = "user_name"
     REQUIRED_FIELDS = []
