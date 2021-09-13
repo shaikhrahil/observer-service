@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         if not password:
             raise ValueError('password is missing')
 
-        user = self.model(user_name)
+        user = self.model(user_name=user_name)
         user.set_password(password)
         user.save()
         return user
@@ -36,7 +36,7 @@ class CustomUserManager(BaseUserManager):
         if not password:
             raise ValueError('password is missing')
 
-        user = self.model(user_name)
+        user = self.model(user_name=user_name)
         user.set_password(password)
         user.is_staff = True
         user.save()
@@ -49,7 +49,7 @@ class CustomUserManager(BaseUserManager):
         if not password:
             raise ValueError('password is missing')
 
-        user = self.model(user_name)
+        user = self.model(user_name=user_name)
         user.set_password(password)
         user.is_superuser = True
         user.save()
