@@ -1,6 +1,6 @@
 from django.db import models
 
-from observers.utils import Constraints
+from observers.utils import Constraints, ObserverStatus
 
 
 class Observer(models.Model):
@@ -8,6 +8,9 @@ class Observer(models.Model):
     description = models.TextField()
     contraints = models.TextField(max_length=45)
     url = models.URLField()
+    status = models.CharField(
+        ObserverStatus.choices, default=ObserverStatus.OFFLINE, max_length=8
+    )
 
     def __str__(self) -> str:
         return f"{self.name}"
