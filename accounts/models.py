@@ -1,3 +1,4 @@
+from devices.models import Device
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -80,6 +81,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = None
 
     preference = models.OneToOneField(Preference, on_delete=models.SET_NULL, null=True)
+    devices = models.ManyToManyField(Device)
 
     def __str__(self):
         return self.username

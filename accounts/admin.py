@@ -35,6 +35,7 @@ class UserAdminForm(UserAdmin):
                     "password",
                     "user_permissions",
                     "username",
+                    "devices",
                 )
             },
         ),
@@ -55,4 +56,5 @@ class ThemeAdminForm(admin.ModelAdmin):
     ordering = ["name", "variant"]
 
 
-#
+admin.site.site_header = "observerX"
+admin.site.site_title = "observerX"
