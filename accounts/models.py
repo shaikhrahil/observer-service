@@ -1,3 +1,4 @@
+from django.core.validators import MinLengthValidator
 from devices.models import Device
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -13,7 +14,13 @@ class Theme(models.Model):
         max_length=5,
         default=ThemeVariantChoices.DARK,
     )
-    name = models.CharField(max_length=12, default="default")
+    name = models.CharField(
+        max_length=12,
+        default="default",
+        validators=[
+            MinLengthValidator(2),
+        ],
+    )
 
     def __str__(self):
         return f"{self.variant}-{self.name}"
@@ -70,7 +77,13 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    username = models.CharField(unique=True, max_length=12)
+    username = models.CharField(
+        unique=True,
+        max_length=12,
+        validators=[
+            MinLengthValidator(6),
+        ],
+    )
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
