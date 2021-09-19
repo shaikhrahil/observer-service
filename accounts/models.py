@@ -71,7 +71,7 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.is_staff = True
         user.is_superuser = True
-        user.save()
+        user.save(using=self.db)
         return user
 
 
@@ -81,7 +81,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         max_length=12,
         validators=[
-            MinLengthValidator(6),
+            MinLengthValidator(4),
         ],
     )
     is_staff = models.BooleanField(default=False)
@@ -94,12 +94,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = None
 
     preference = models.OneToOneField(Preference, on_delete=models.SET_NULL, null=True)
-    devices = models.ManyToManyField(Device)
+    devices = models.ManyToManyField(Device, blank=True)
 
     def __str__(self):
         return self.username
 
-    object = CustomUserManager()
+    objects = CustomUserManager()
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
