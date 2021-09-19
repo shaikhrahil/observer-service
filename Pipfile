@@ -7,8 +7,12 @@ name = "pypi"
 django = "*"
 psycopg2 = "*"
 black = "*"
+django-allauth = "*"
+django-rest-auth = "*"
+dj-rest-auth = "*"
+djangorestframework-simplejwt = "*"
 
-[dev - packages]
+[dev-packages]
 
 [requires]
 python_version = "3.8"
