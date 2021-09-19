@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx commitlint --edit $1 
+npx commitlint -x /home/rahil/.npm-global/lib/node_modules/@commitlint/config-conventional --edit $1

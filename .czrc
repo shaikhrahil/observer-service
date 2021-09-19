@@ -1,0 +1,43 @@
+{   
+    "path": "cz-emoji" ,
+    "config": {
+        "cz-emoji": {
+            "conventional": true,  
+            "scopes": ["observers" , "core", "accounts" , "devices"],
+            "types": [
+                { "code":":sparkles:", "value": " feat", "emoji" : "🌟", "name" :"feat",  "description": "Adding a new feature" },
+                { "code":":bug:", "value": " fix", "emoji" : "🐛", "name" :"fix",  "description": "Fixing a bug" },
+                { "code":":memo:", "value": " docs", "emoji" : "📝", "name" :"docs",  "description": "Add or update documentation" },
+                {
+                  "code":":lipstick:", "value": " style",
+                  "emoji" : "💄", "name" :"style",  "description": "Add or update styles, ui or ux"
+                },
+                {
+                  "code":":recycle:", "value": " refactor",
+                  "emoji" : "♻️", "name" :" refactor",  "description": "Code change that neither fixes a bug nor adds a feature"
+                },
+                {
+                  "code":":zap:", "value": " perf",
+                  "emoji" : "⚡️", "name" :"perf",  "description": "Code change that improves performance"
+                },
+                {
+                  "code":":white_check_mark:", "value": " test",
+                  "emoji" : "✅", "name" :"test",  "description": "Adding tests cases"
+                },
+                {
+                  "code":":truck:", "value": " chore",
+                  "emoji" : "🚚", "name" :"chore",  "description": "Changes to the build process or auxiliary tools\nand libraries such as documentation generation"
+                },
+                { "code":":rewind:", "value": " revert", "emoji" : "⏪️", "name" :"revert",  "description": "Revert to a commit" },
+                { "code":":construction:", "value": " wip", "emoji" : "🚧", "name" :"wip",  "description": "Work in progress" },
+                {
+                  "code":":construction_worker:", "value": " build",
+                  "emoji" : "👷", "name" :"build",  "description": "Add or update regards to build process"
+                },
+                {
+                  "code":":green_heart:", "value": " ci",
+                  "emoji" : "💚", "name" :"ci",  "description": "Add or update regards to build process"
+                }]
+        }
+    }
+}
