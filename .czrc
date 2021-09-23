@@ -5,38 +5,38 @@
             "conventional": true,  
             "scopes": ["observers" , "core", "accounts" , "devices"],
             "types": [
-                { "code":":star:", "value": ":star: feat", "emoji" : "🌟", "name" :"feat",  "description": "Adding a new feature" },
-                { "code":":bug:", "value": ":bug: fix", "emoji" : "🐛", "name" :"fix",  "description": "Fixing a bug" },
-                { "code":":memo:", "value": ":memo: docs", "emoji" : "📝", "name" :"docs",  "description": "Add or update documentation" },
+                { "code":"", "value": "🌟 feat", "emoji" : "", "name" :"feat",  "description": "Adding a new feature" },
+                { "code":"", "value": "🐛 fix", "emoji" : "", "name" :"fix",  "description": "Fixing a bug" },
+                { "code":"", "value": "📝 docs", "emoji" : "", "name" :"docs",  "description": "Add or update documentation" },
                 {
-                  "code":":lipstick:", "value": ":lipstick: style",
-                  "emoji" : "💄", "name" :"style",  "description": "Add or update styles, ui or ux"
+                  "code":"", "value": " styl💄e",
+                  "emoji" : "", "name" :"style",  "description": "Add or update styles, ui or ux"
                 },
                 {
-                  "code":":recycle:", "value": ":recycle: refactor",
-                  "emoji" : "♻️", "name" :" refactor",  "description": "Code change that neither fixes a bug nor adds a feature"
+                  "code":"", "value": " refacto♻️r",
+                  "emoji" : "", "name" :" refactor",  "description": "Code change that neither fixes a bug nor adds a feature"
                 },
                 {
-                  "code":":zap:", "value": ":zap: perf",
-                  "emoji" : "⚡️", "name" :"perf",  "description": "Code change that improves performance"
+                  "code":"", "value": " per⚡️f",
+                  "emoji" : "", "name" :"perf",  "description": "Code change that improves performance"
                 },
                 {
-                  "code":":white_check_mark:", "value": ":white_check_mark: test",
-                  "emoji" : "✅", "name" :"test",  "description": "Adding tests cases"
+                  "code":"", "value": " tes✅t",
+                  "emoji" : "", "name" :"test",  "description": "Adding tests cases"
                 },
                 {
-                  "code":":truck:", "value": ":truck: chore",
-                  "emoji" : "🚚", "name" :"chore",  "description": "Changes to the build process or auxiliary tools\nand libraries such as documentation generation"
+                  "code":"", "value": " chor🚚e",
+                  "emoji" : "", "name" :"chore",  "description": "Changes to the build process or auxiliary tools\nand libraries such as documentation generation"
                 },
-                { "code":":rewind:", "value": ":rewind: revert", "emoji" : "⏪️", "name" :"revert",  "description": "Revert to a commit" },
-                { "code":":construction:", "value": ":construction: wip", "emoji" : "🚧", "name" :"wip",  "description": "Work in progress" },
+                { "code":"", "value": "⏪️ revert", "emoji" : "⏪", "name" :"revert",  "description": "Revert to a commit" },
+                { "code":"", "value": "🚧 wip", "emoji" : "", "name" :"wip",  "description": "Work in progress" },
                 {
-                  "code":":construction_worker:", "value": ":construction_worker: build",
-                  "emoji" : "👷", "name" :"build",  "description": "Add or update regards to build process"
+                  "code":"", "value": " buil👷d",
+                  "emoji" : "", "name" :"build",  "description": "Add or update regards to build process"
                 },
                 {
-                  "code":":green_heart:", "value": ":green_heart: ci",
-                  "emoji" : "💚", "name" :"ci",  "description": "Add or update regards to build process"
+                  "code":"", "value": " c💚i",
+                  "emoji" : "", "name" :"ci",  "description": "Add or update regards to build process"
                 }]
         }
     }
