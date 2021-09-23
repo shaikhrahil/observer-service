@@ -5,38 +5,38 @@
             "conventional": true,  
             "scopes": ["observers" , "core", "accounts" , "devices"],
             "types": [
-                { "code":":star2:", "value": "🌟 feat", "name" :"feat",  "description": "Adding a new feature" },
-                { "code":":bug:", "value": "🐛 fix", "name" :"fix",  "description": "Fixing a bug" },
-                { "code":":memo:", "value": "📝 docs", "name" :"docs",  "description": "Add or update documentation" },
+                { "code":":star:", "value": ":star: feat", "emoji" : "🌟", "name" :"feat",  "description": "Adding a new feature" },
+                { "code":":bug:", "value": ":bug: fix", "emoji" : "🐛", "name" :"fix",  "description": "Fixing a bug" },
+                { "code":":memo:", "value": ":memo: docs", "emoji" : "📝", "name" :"docs",  "description": "Add or update documentation" },
                 {
-                  "code":":lipstick:", "value": "style💄 ",
-                 "name" :"style",  "description": "Add or update styles, ui or ux"
+                  "code":":lipstick:", "value": ":lipstick: style",
+                  "emoji" : "💄", "name" :"style",  "description": "Add or update styles, ui or ux"
                 },
                 {
-                  "code":":recycle:", "value": "refactor♻️ ",
-                 "name" :" refactor",  "description": "Code change that neither fixes a bug nor adds a feature"
+                  "code":":recycle:", "value": ":recycle: refactor",
+                  "emoji" : "♻️", "name" :" refactor",  "description": "Code change that neither fixes a bug nor adds a feature"
                 },
                 {
-                  "code":":zap:", "value": "perf⚡️ ",
-                 "name" :"perf",  "description": "Code change that improves performance"
+                  "code":":zap:", "value": ":zap: perf",
+                  "emoji" : "⚡️", "name" :"perf",  "description": "Code change that improves performance"
                 },
                 {
-                  "code":":white_check_mark:", "value": "test✅ ",
-                 "name" :"test",  "description": "Adding tests cases"
+                  "code":":white_check_mark:", "value": ":white_check_mark: test",
+                  "emoji" : "✅", "name" :"test",  "description": "Adding tests cases"
                 },
                 {
-                  "code":":truck:", "value": "chore🚚 ",
-                 "name" :"chore",  "description": "Changes to the build process or auxiliary tools\nand libraries such as documentation generation"
+                  "code":":truck:", "value": ":truck: chore",
+                  "emoji" : "🚚", "name" :"chore",  "description": "Changes to the build process or auxiliary tools\nand libraries such as documentation generation"
                 },
-                { "code":":rewind:", "value": "⏪️ revert", "name" :"revert",  "description": "Revert to a commit" },
-                { "code":":construction:", "value": "🚧 wip", "name" :"wip",  "description": "Work in progress" },
+                { "code":":rewind:", "value": ":rewind: revert", "emoji" : "⏪️", "name" :"revert",  "description": "Revert to a commit" },
+                { "code":":construction:", "value": ":construction: wip", "emoji" : "🚧", "name" :"wip",  "description": "Work in progress" },
                 {
-                  "code":":construction_worker:", "value": "build👷 ",
-                 "name" :"build",  "description": "Add or update regards to build process"
+                  "code":":construction_worker:", "value": ":construction_worker: build",
+                  "emoji" : "👷", "name" :"build",  "description": "Add or update regards to build process"
                 },
                 {
-                  "code":":green_heart:", "value": "ci💚 ",
-                 "name" :"ci",  "description": "Add or update regards to build process"
+                  "code":":green_heart:", "value": ":green_heart: ci",
+                  "emoji" : "💚", "name" :"ci",  "description": "Add or update regards to build process"
                 }]
         }
     }
