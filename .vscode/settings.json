@@ -5,7 +5,8 @@
         "**/node_modules": true,
         "**/bower_components": true,
         "**/*.code-search": true,
-        "**/migrations/*": true
+        "**/migrations/*": true,
+        "**/.git": true
     },
     "files.exclude": {
         "**/.git": false
