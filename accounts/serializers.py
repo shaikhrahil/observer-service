@@ -1,5 +1,3 @@
-from django.db import models
-from django.db.models import fields
 from rest_framework import serializers
 
 from .models import User
@@ -31,4 +29,11 @@ class SignupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "is_staff", "is_superuser", "date_joined", "preference"]
+        fields = [
+            "id",
+            "username",
+            "is_staff",
+            "is_superuser",
+            "date_joined",
+            "preference",
+        ]

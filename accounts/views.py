@@ -1,23 +1,22 @@
-from rest_framework import generics, status
-from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets, status
+from rest_framework import permissions, decorators
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from accounts.models import User
-from accounts.serializer import SignupSerializer, UserSerializer
+from .models import User
+from .serializers import SignupSerializer, UserSerializer
 
 
-@api_view(["POST"])
+@decorators.api_view(["POST"])
 def signup(request):
     serializer = SignupSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response(status=status.HTTP_200_OK)
     return Response(serializer.errors)
 
 
-@api_view(["GET", "POST"])
+@decorators.api_view(["GET", "POST"])
 def logout(request):
     try:
         r_tkn = request.data["refresh_token"]
@@ -28,10 +27,10 @@ def logout(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserController(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_object(self, queryset=None):
-        return self.request.user
+    # def get_object(self, queryset=None):
+    #     return self.request.user
