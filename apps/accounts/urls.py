@@ -3,7 +3,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from accounts.views import UserViewSet, signup, logout
+from .views import UserViewSet, signup, logout
 from django.urls import path
 
 from rest_framework import routers

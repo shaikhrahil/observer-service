@@ -1,6 +1,6 @@
 from django.db import models
 
-from observers.utils import Constraints, ObserverStatus
+from .utils import ObserverStatus
 
 
 class Observer(models.Model):

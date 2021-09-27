@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from accounts.models import Preference, Theme, User
+from .models import Preference, Theme, User
 
 
 @admin.register(Preference)

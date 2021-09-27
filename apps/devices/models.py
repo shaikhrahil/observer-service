@@ -1,6 +1,7 @@
-from devices.utils import DeviceStatus
 from django.db import models
-from observers.models import Observer
+
+from apps.devices.utils import DeviceStatus
+from apps.observers.models import Observer
 
 
 class Device(models.Model):

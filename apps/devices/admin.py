@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from devices.models import Device
+from .models import Device
 
 
 @admin.register(Device)

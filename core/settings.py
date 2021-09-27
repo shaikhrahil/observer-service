@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
-    "accounts",
-    "devices",
-    "observers",
+    "apps.accounts",
+    "apps.devices",
+    "apps.observers",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "observer.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "observer.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database

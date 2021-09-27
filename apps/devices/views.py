@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
-from devices.models import Device
-from devices.serializers import DeviceSerializer
+from .models import Device
+from .serializers import DeviceSerializer
 
 
 class DeviceViewSet(viewsets.ModelViewSet):
