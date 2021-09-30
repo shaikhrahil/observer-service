@@ -1,9 +1,9 @@
-from rest_framework import viewsets, status
-from rest_framework import permissions, decorators
+from rest_framework import decorators, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
+from .permissions import OwnProfilePermission
 from .serializers import SignupSerializer, UserSerializer
 
 
@@ -28,7 +28,7 @@ def logout(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, OwnProfilePermission]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
