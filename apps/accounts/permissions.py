@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class OwnProfilePermission(permissions.BasePermission):
+class IsOwner(permissions.BasePermission):
     """
     Object-level permission to only allow updating his own profile
     """
@@ -16,7 +16,7 @@ class OwnProfilePermission(permissions.BasePermission):
         return obj.user == request.user
 
 
-class StrictProfilePermission(permissions.BasePermission):
+class IsOwnerStrict(permissions.BasePermission):
     """
     Object-level permission to only allow updating his own profile
     """

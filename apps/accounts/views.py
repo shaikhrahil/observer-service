@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
-from .permissions import OwnProfilePermission
+from .permissions import IsOwner
 from .serializers import SignupSerializer, UserSerializer
 
 
@@ -13,7 +13,7 @@ def signup(request):
     if serializer.is_valid():
         serializer.save()
         return Response(status=status.HTTP_200_OK)
-    return Response(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @decorators.api_view(["GET", "POST"])
@@ -28,7 +28,7 @@ def logout(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated, OwnProfilePermission]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
