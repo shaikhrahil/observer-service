@@ -62,7 +62,6 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, password):
-        print(username, password)
         if not username:
             raise ValueError("username is missing")
         if not password:

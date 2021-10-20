@@ -12,8 +12,9 @@ class IsOwner(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
+        print(obj)
         # obj here is a UserProfile instance
-        return obj.user == request.user
+        return obj == request.user
 
 
 class IsOwnerStrict(permissions.BasePermission):
@@ -23,4 +24,4 @@ class IsOwnerStrict(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # obj here is a UserProfile instance
-        return obj.user == request.user
+        return obj == request.user

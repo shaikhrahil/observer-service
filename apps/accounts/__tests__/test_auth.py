@@ -1,20 +1,9 @@
-import factory
 import pytest
+from faker import Faker
 from rest_framework import status
-from faker import Factory as FakerFactory
-from pytest_factoryboy import register
-from apps.accounts.models import User
+from rest_framework.exceptions import AuthenticationFailed
 
-
-class UserFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = factory.faker.Faker("name")
-    password = factory.faker.Faker("password")
-
-
-register(UserFactory)
+fake = Faker()
 
 
 @pytest.mark.django_db
@@ -86,3 +75,49 @@ def test_login(test, username, password, result, client):
         )
     elif result == status.HTTP_400_BAD_REQUEST:
         assert res.data
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "test,user,expected",
+    [
+        (
+            "should fail with empty new and old password",
+            {"new_password": "", "password": ""},
+            status.HTTP_400_BAD_REQUEST,
+        ),
+        (
+            "should fail with empty old password",
+            {"password": "", "new_password": "awesome !"},
+            status.HTTP_400_BAD_REQUEST,
+        ),
+        (
+            "should fail with empty new password",
+            {"new_password": "", "password": "awesome !"},
+            status.HTTP_400_BAD_REQUEST,
+        ),
+        (
+            "should fail with wrong old password",
+            {"new_password": fake.password(), "password": "wrong old password"},
+            status.HTTP_401_UNAUTHORIZED,
+        ),
+        (
+            "should change password",
+            {"new_password": fake.password(), "password": "awesome !"},
+            status.HTTP_200_OK,
+        ),
+    ],
+)
+def test_change_password(test, user, expected, mock_user, auth_client):
+    password = "awesome !"
+    new_password = user["new_password"]
+    u = mock_user(password=password)
+    url = f"/api/v1/auth/change-password/"
+    client = auth_client(username=u.username, password=password)
+    res = client.post(url, user)
+    assert res.status_code == expected
+    if expected == status.HTTP_200_OK:
+        client = auth_client(username=u.username, password=new_password)
+    elif expected == status.HTTP_401_UNAUTHORIZED:
+        with pytest.raises(AuthenticationFailed):
+            assert auth_client(username=u.username, password=new_password)

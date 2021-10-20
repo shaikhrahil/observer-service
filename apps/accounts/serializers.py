@@ -1,6 +1,31 @@
+from django.contrib.auth.hashers import check_password
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
 
 from .models import User
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    new_password = serializers.CharField(
+        write_only=True,
+        required=True,
+        style={"input_type": "password"},
+    )
+
+    class Meta:
+        model = User
+        fields = ["password", "new_password"]
+
+    def update(self, user):
+        if self.validated_data["password"] == self.validated_data["new_password"]:
+            raise serializers.ValidationError("Old and new password cannot be same")
+
+        if not check_password(self.validated_data["password"], user.password):
+            raise AuthenticationFailed("Old password is incorrect")
+
+        user.set_password(self.validated_data["new_password"])
+        user.save()
+        return user
 
 
 class SignupSerializer(serializers.ModelSerializer):
