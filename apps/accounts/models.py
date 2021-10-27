@@ -2,7 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, tree
 
 from apps.devices.models import Device
 
@@ -28,13 +28,6 @@ class Theme(models.Model):
 
     class Meta:
         unique_together = ("variant", "name")
-
-
-class Preference(models.Model):
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.theme}"
 
 
 class CustomUserManager(BaseUserManager):
@@ -93,9 +86,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = None
     last_name = None
 
-    preference = models.OneToOneField(Preference, on_delete=models.SET_NULL, null=True)
-    devices = models.ManyToManyField(Device, blank=True)
-
     def __str__(self):
         return self.username
 
@@ -103,3 +93,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
+
+
+class Preference(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    theme = models.ForeignKey(Theme, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.theme}"

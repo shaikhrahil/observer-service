@@ -1,3 +1,4 @@
+from django.urls.base import reverse
 import pytest
 from pytest_factoryboy import register
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
@@ -25,13 +26,13 @@ def auth_client():
     def get(**kwargs):
         client = APIClient()
         res = client.post(
-            "/api/v1/auth/login/",
+            reverse("login"),
             {"username": kwargs["username"], "password": kwargs["password"]},
         )
         if "access" in res.data:
             client.credentials(HTTP_AUTHORIZATION=f"JWT {res.data['access']}")
         else:
             raise AuthenticationFailed
-        return client
+        return client, res.data
 
     return get

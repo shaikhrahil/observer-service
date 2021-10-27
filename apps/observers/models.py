@@ -9,7 +9,7 @@ class Observer(models.Model):
     contraints = models.TextField(max_length=45)
     url = models.URLField()
     status = models.CharField(
-        ObserverStatus.choices, default=ObserverStatus.OFFLINE, max_length=8
+        ObserverStatus.choices, default=ObserverStatus.DRAFT, max_length=8
     )
 
     def __str__(self) -> str:

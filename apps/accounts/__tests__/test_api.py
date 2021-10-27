@@ -1,3 +1,4 @@
+from django.urls import reverse
 import pytest
 from faker import Faker
 from rest_framework import status
@@ -19,7 +20,7 @@ fake = Faker()
 )
 def test_signup(test, username, password, password2, result, client, user_factory):
     res = client.post(
-        "/api/v1/auth/signup/",
+        reverse("signup"),
         {"username": username, "password": password, "password2": password2},
     )
 
@@ -35,8 +36,8 @@ def test_duplicate_signup(client, user_factory):
         "password": user.password,
         "password2": user.password,
     }
-    res = client.post("/api/v1/auth/signup/", req)
-    res = client.post("/api/v1/auth/signup/", req)
+    res = client.post(reverse("signup"), req)
+    res = client.post(reverse("signup"), req)
 
     expected = status.HTTP_400_BAD_REQUEST
     assert res.status_code == expected
@@ -56,11 +57,11 @@ def test_duplicate_signup(client, user_factory):
 )
 def test_login(test, username, password, result, client):
     client.post(
-        "/api/v1/auth/signup/",
+        reverse("signup"),
         {"username": "rahil", "password": "awesome", "password2": "awesome"},
     )
     res = client.post(
-        "/api/v1/auth/login/",
+        reverse("login"),
         {"username": username, "password": password},
     )
     assert res.status_code == result
@@ -112,8 +113,8 @@ def test_change_password(test, user, expected, mock_user, auth_client):
     password = "awesome !"
     new_password = user["new_password"]
     u = mock_user(password=password)
-    url = f"/api/v1/auth/change-password/"
-    client = auth_client(username=u.username, password=password)
+    url = reverse("change_password")
+    client, _res = auth_client(username=u.username, password=password)
     res = client.post(url, user)
     assert res.status_code == expected
     if expected == status.HTTP_200_OK:
@@ -121,3 +122,114 @@ def test_change_password(test, user, expected, mock_user, auth_client):
     elif expected == status.HTTP_401_UNAUTHORIZED:
         with pytest.raises(AuthenticationFailed):
             assert auth_client(username=u.username, password=new_password)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "test,user_id,expected",
+    [
+        (
+            "should fail with no user with userid=0",
+            0,
+            status.HTTP_404_NOT_FOUND,
+        ),
+        (
+            "should succeed",
+            1,
+            status.HTTP_200_OK,
+        ),
+    ],
+)
+def test_get_my_profile(test, user_id, expected, mock_user, auth_client):
+    password = "awesome !"
+    u = mock_user(password=password)
+    client, _res = auth_client(username=u.username, password=password)
+    url = reverse("users-detail", kwargs={"pk": user_id})
+    res = client.get(url)
+    assert res.status_code == expected
+
+
+@pytest.mark.django_db
+def test_logout(mock_user, auth_client, client):
+    password = fake.password()
+    user = mock_user(password=password)
+    authenticated_client, res = auth_client(username=user.username, password=password)
+    logout_path = reverse("logout")
+    assert client.post(logout_path).status_code == status.HTTP_401_UNAUTHORIZED
+    assert (
+        authenticated_client.post(
+            logout_path, {"refresh_token": res["refresh"]}
+        ).status_code
+        == status.HTTP_202_ACCEPTED
+    )
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "test,new_user,response",
+    [
+        ("should update username", {"username": "awesomeRahil"}, status.HTTP_200_OK),
+        (
+            "should fail to update username",
+            {"username": "lk"},
+            status.HTTP_400_BAD_REQUEST,
+        ),
+        (
+            "should create prefences",
+            {
+                "username": "new username",
+                "preference": {"theme": {"variant": "light", "name": "default"}},
+            },
+            status.HTTP_200_OK,
+        ),
+        ("should reset prefences", {"preference": None}, status.HTTP_200_OK),
+        (
+            "should update theme name to 'awesome theme !'",
+            {
+                "username": "new username",
+                "preference": {"theme": {"name": "awesome the", "variant": "light"}},
+            },
+            status.HTTP_200_OK,
+        ),
+        (
+            "should update theme variant to 'light'",
+            {
+                "username": "new username",
+                "preference": {"theme": {"variant": "light", "name": "default"}},
+            },
+            status.HTTP_200_OK,
+        ),
+        (
+            "should fail to update theme variant to 'invalid variant'",
+            {
+                "username": "new username",
+                "preference": {
+                    "theme": {"variant": "invalid variant", "name": "default"}
+                },
+            },
+            status.HTTP_400_BAD_REQUEST,
+        ),
+    ],
+)
+def test_update_my_profile(test, new_user, response, mock_user, auth_client):
+    password = fake.password()
+    u = mock_user(password=password)
+    client, _res = auth_client(username=u.username, password=password)
+    assert (
+        client.patch(
+            reverse("users-detail", kwargs={"pk": u.id}),
+            new_user,
+            format="json",
+        ).status_code
+        == response
+    )
+
+
+@pytest.mark.django_db
+def test_deactivate_my_account(mock_user, auth_client):
+    password = fake.password()
+    u = mock_user(password=password)
+    client, _res = auth_client(username=u.username, password=password)
+    assert client.delete(reverse("users-detail", kwargs={"pk": u.id}))
+    with pytest.raises(AuthenticationFailed):
+        auth_client(username=u.username, password=u.password)

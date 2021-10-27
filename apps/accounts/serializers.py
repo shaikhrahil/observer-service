@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import check_password
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 
-from .models import User
+from .models import Preference, Theme, User
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
@@ -51,7 +51,23 @@ class SignupSerializer(serializers.ModelSerializer):
         return account
 
 
+class ThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Theme
+        fields = "__all__"
+
+
+class PreferenceSerializer(serializers.ModelSerializer):
+    theme = ThemeSerializer(allow_null=True)
+
+    class Meta:
+        model = Preference
+        fields = ["theme"]
+
+
 class UserSerializer(serializers.ModelSerializer):
+    preference = PreferenceSerializer(allow_null=True)
+
     class Meta:
         model = User
         fields = [
@@ -62,3 +78,19 @@ class UserSerializer(serializers.ModelSerializer):
             "date_joined",
             "preference",
         ]
+
+    def create(self, validated_data):
+        preference = validated_data.pop("preference")
+        u = User.objects.create(**validated_data)
+        Preference.objects.create(**preference, user=u)
+        return u
+
+    def update(self, instance, validated_data):
+        preference = validated_data.pop("preference", None)
+        instance.username = validated_data.get("username", instance.username)
+        # u = User.objects.update(**validated_data)
+        instance.save()
+        # if preference:
+        #     Preference.objects.update_or_create(**preference)
+        # Preference.objects.filter(user=u).update(**preference)
+        return instance

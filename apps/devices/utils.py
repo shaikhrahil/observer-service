@@ -6,3 +6,10 @@ class DeviceStatus(models.TextChoices):
     INACTIVE = "inactive"
     ONLINE = "online"
     OFFLINE = "offline"
+
+
+class ObserverStatus(models.TextChoices):
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+    ONLINE = "online"
+    OFFLINE = "offline"

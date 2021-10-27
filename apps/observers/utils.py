@@ -8,7 +8,5 @@ class Constraints(models.TextChoices):
 
 
 class ObserverStatus(models.TextChoices):
-    ACTIVE = "active"
-    INACTIVE = "inactive"
-    ONLINE = "online"
-    OFFLINE = "offline"
+    PUBLISHED = "published"
+    DRAFT = "draft"

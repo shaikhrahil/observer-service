@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
-from .permissions import IsOwner, IsOwnerStrict
+from .permissions import IsOwnerStrict
 from .serializers import ChangePasswordSerializer, SignupSerializer, UserSerializer
 
 
@@ -27,6 +27,7 @@ def change_password(request):
 
 
 @decorators.api_view(["GET", "POST"])
+@decorators.permission_classes([permissions.IsAuthenticated, IsOwnerStrict])
 def logout(request):
     try:
         r_tkn = request.data["refresh_token"]
@@ -34,7 +35,8 @@ def logout(request):
         token.blacklist()
         return Response(status=status.HTTP_202_ACCEPTED)
     except Exception as e:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        print(e)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserViewSet(viewsets.ModelViewSet):
